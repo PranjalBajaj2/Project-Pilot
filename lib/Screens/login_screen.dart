@@ -9,6 +9,7 @@ import 'package:projectpilot/shared/widgets/primary_button.dart';
 
 import '../routes/app_routes.dart';
 import '../routes/route_names.dart';
+import '../shared/widgets/auth_card.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -69,7 +70,9 @@ class _LoginScreenState extends State<LoginScreen> {
               Expanded(
                 child: Center(
                   child: SingleChildScrollView(
-                    child: _loginForm(),
+                    child: AuthCard(
+                      child: _loginForm(),
+                    ),
                   ),
                 ),
               ),
@@ -95,7 +98,10 @@ class _LoginScreenState extends State<LoginScreen> {
               width: 420,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40),
-                child: _loginForm(showTitle: true),
+
+                child: AuthCard(
+                  child: _loginForm(showTitle: true),
+                ),
               ),
             ),
           ),
@@ -141,7 +147,9 @@ class _LoginScreenState extends State<LoginScreen> {
           Align(
             alignment: Alignment.centerRight,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                context.push(RouteNames.forgotPassword);
+              },
               child: const Text("Forgot Password?"),
             ),
           ),
@@ -154,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
               if (!_formKey.currentState!.validate()) {
                 return;
               }
-              context.go(RouteNames.dashboard);
+              context.go(RouteNames.main);
 
             },
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectpilot/core/utils/validators.dart';
 import 'package:projectpilot/shared/widgets/custom_text_field.dart';
 import 'package:projectpilot/shared/widgets/primary_button.dart';
 
@@ -21,9 +22,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-
-  bool obscurePassword = true;
-  bool obscureConfirm = true;
 
   @override
   void dispose() {
@@ -73,52 +71,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
               prefixIcon: const Icon(Icons.email_outlined),
+              validator: Validators.email,
             ),
 
             const SizedBox(height: 20),
 
             TextFormField(
               controller: passwordController,
-              obscureText: obscurePassword,
               decoration: InputDecoration(
                 hintText: "Password",
                 prefixIcon: const Icon(Icons.lock_outline),
-                // suffixIcon: IconButton(
-                //   onPressed: () {
-                //     setState(() {
-                //       obscurePassword = !obscurePassword;
-                //     });
-                //   },
-                //   icon: Icon(
-                //     obscurePassword
-                //         // ? Icons.visibility_off_outlined
-                //         // : Icons.visibility_outlined,
-                //   ),
-                // ),
               ),
+                validator: Validators.password,
             ),
 
             const SizedBox(height: 20),
 
             TextFormField(
               controller: confirmPasswordController,
-              obscureText: obscureConfirm,
               decoration: InputDecoration(
                 hintText: "Confirm Password",
                 prefixIcon: const Icon(Icons.lock_outline),
-                // suffixIcon: IconButton(
-                //   onPressed: () {
-                //     setState(() {
-                //       obscureConfirm = !obscureConfirm;
-                //     });
-                //   },
-                //   icon: Icon(
-                //     obscureConfirm
-                //         ? Icons.visibility_off_outlined
-                //         : Icons.visibility_outlined,
-                //   ),
-                // ),
               ),
+                // validator: Validators.confirmPassword,
             ),
 
             const SizedBox(height: 32),
