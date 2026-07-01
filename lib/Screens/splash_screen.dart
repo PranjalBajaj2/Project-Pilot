@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:projectpilot/Screens/login_screen.dart';
-import 'package:projectpilot/features/dashboard.dart';
-
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});
 
@@ -13,6 +10,8 @@ class Splashscreen extends StatefulWidget {
 
 class _SplashscreenState extends State<Splashscreen> {
   late Timer _timer;
+  bool get isDesktop =>
+      MediaQuery.of(context).size.width >= 800;
 
   @override
   void initState() {
@@ -36,6 +35,14 @@ class _SplashscreenState extends State<Splashscreen> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: isDesktop ? _buildDesktop() : _buildMobile(),
+    );
+  }
+
+
+
+  Widget _buildDesktop() {
     return Scaffold(
       backgroundColor: Color(0xFFE18D5D),
       body: SafeArea(
@@ -70,6 +77,40 @@ class _SplashscreenState extends State<Splashscreen> {
             ],
           ),
 
+        ),
+      ),
+    );
+  }
+  Widget _buildMobile() {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return Scaffold(
+      backgroundColor: Color(0xFFE18D5D),
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+
+              // IMAGE (center aligned in row)
+              Image.asset(
+                "images/splash.png",
+                width: width * 0.5,
+                height: height * 0.2,
+                fit: BoxFit.cover,
+              ),
+
+              const SizedBox(height: 20),
+
+              Image.asset(
+                "images/logo.jpg",
+                width: 400,
+                height: 250,
+                fit: BoxFit.cover,
+              ),
+            ],
+          ),
         ),
       ),
     );
