@@ -3,8 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:projectpilot/core/utils/validators.dart';
 import 'package:projectpilot/shared/widgets/custom_text_field.dart';
 import 'package:projectpilot/shared/widgets/primary_button.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:provider/provider.dart';
 
+import '../features/auth/providers/auth_provider.dart';
 import '../routes/route_names.dart';
+import '../shared/widgets/app_snackbar.dart';
 import '../shared/widgets/auth_layout.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -100,8 +104,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
             PrimaryButton(
               text: "Create Account",
-              onPressed: () {
+              onPressed: () async {
+                if (!_formKey.currentState!.validate()) return;
 
+                final authProvider = context.read<AuthProvider>();
+
+                final success = await authProvider.register(
+                  name: nameController.text.trim(),
+                  email: emailController.text.trim(),
+                  password: passwordController.text.trim(),
+                );
+
+                if (!mounted) return;
+
+                if (success) {
+                  AppSnackbar.show(
+                    context,
+                    title: "Congratulations",
+                    message: "you can login now",
+                    type: ContentType.success,
+                  );
+                  context.go(RouteNames.login);
+                } else {
+                  AppSnackbar.show(
+                    context,
+                    title: "Registration failed",
+                    message: authProvider.error ?? "Something went wrong",
+                    type: ContentType.failure,
+                  );
+                }
               },
             ),
 

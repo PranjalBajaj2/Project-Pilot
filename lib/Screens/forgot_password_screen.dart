@@ -6,7 +6,9 @@ import 'package:projectpilot/core/utils/validators.dart';
 import 'package:projectpilot/shared/widgets/app_logo.dart';
 import 'package:projectpilot/shared/widgets/custom_text_field.dart';
 import 'package:projectpilot/shared/widgets/primary_button.dart';
+import 'package:provider/provider.dart';
 
+import '../features/auth/providers/auth_provider.dart';
 import '../routes/app_routes.dart';
 import '../routes/route_names.dart';
 import '../shared/widgets/auth_card.dart';
@@ -142,13 +144,33 @@ class _ForgotPasswordstate extends State<ForgotPasswordScreen> {
 
           const SizedBox(height: 30),
 
-          PrimaryButton(
-            text: "Send Reset Link",
-            onPressed: () {
-              context.push(RouteNames.login);
+              PrimaryButton(
+                text: "Send Reset Link",
+                onPressed: () async {
+                  if (!_formKey.currentState!.validate()) return;
 
-            },
-          ),
+                  final authProvider = context.read<AuthProvider>();
+
+                  await authProvider.forgotPassword(
+                    emailController.text.trim(),
+                  );
+
+                  if (!mounted) return;
+
+
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Password reset email sent."),
+                    ),
+                  );
+
+                  context.pop();
+                },
+              ),
+
+
+
 
         ],
       ),

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:projectpilot/Screens/register_screen.dart';
 import 'package:projectpilot/core/utils/validators.dart';
 import 'package:projectpilot/shared/widgets/app_logo.dart';
 import 'package:projectpilot/shared/widgets/custom_text_field.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:projectpilot/shared/widgets/primary_button.dart';
+import 'package:provider/provider.dart';
 
-import '../routes/app_routes.dart';
+import '../features/auth/providers/auth_provider.dart';
 import '../routes/route_names.dart';
+import '../shared/widgets/app_snackbar.dart';
 import '../shared/widgets/auth_card.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -31,14 +33,11 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  bool get isDesktop =>
-      MediaQuery.of(context).size.width >= 800;
+  bool get isDesktop => MediaQuery.of(context).size.width >= 800;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: isDesktop ? _buildDesktop() : _buildMobile(),
-    );
+    return Scaffold(body: isDesktop ? _buildDesktop() : _buildMobile());
   }
 
   //================ MOBILE =================//
@@ -70,9 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Expanded(
                 child: Center(
                   child: SingleChildScrollView(
-                    child: AuthCard(
-                      child: _loginForm(),
-                    ),
+                    child: AuthCard(child: _loginForm()),
                   ),
                 ),
               ),
@@ -87,26 +84,25 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildDesktop() {
     return Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(image: 
-          AssetImage("images/BackPoster.png"),
-            fit: BoxFit.fill,)
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("images/BackPoster.png"),
+          fit: BoxFit.fill,
         ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: SizedBox(
-              width: 420,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40),
+      ),
+      child: Center(
+        child: SingleChildScrollView(
+          child: SizedBox(
+            width: 420,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
 
-                child: AuthCard(
-                  child: _loginForm(showTitle: true),
-                ),
-              ),
+              child: AuthCard(child: _loginForm(showTitle: true)),
             ),
           ),
         ),
-     );
+      ),
+    );
   }
 
   //================ FORM =================//
@@ -118,9 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (showTitle) ...[
-            Center(
-              child: const AppLogo(size: 46,)
-            ),
+            Center(child: const AppLogo(size: 46)),
             const SizedBox(height: 40),
           ],
 
@@ -158,12 +152,34 @@ class _LoginScreenState extends State<LoginScreen> {
 
           PrimaryButton(
             text: "Login",
-            onPressed: () {
-              if (!_formKey.currentState!.validate()) {
-                return;
-              }
-              context.go(RouteNames.main);
+            onPressed: () async {
+              if (!_formKey.currentState!.validate()) return;
 
+              final authProvider = context.read<AuthProvider>();
+
+              final success = await authProvider.login(
+                email: emailController.text.trim(),
+                password: passwordController.text.trim(),
+              );
+
+              if (!mounted) return;
+
+              if (success) {
+                AppSnackbar.show(
+                  context,
+                  title: "Congratulations",
+                  message: "login Successfully",
+                  type: ContentType.success,
+                );
+                context.go(RouteNames.main);
+              } else {
+                AppSnackbar.show(
+                  context,
+                  title: "Oops",
+                  message: (authProvider.error ?? "Login failed"),
+                  type: ContentType.failure,
+                );
+              }
             },
           ),
 
