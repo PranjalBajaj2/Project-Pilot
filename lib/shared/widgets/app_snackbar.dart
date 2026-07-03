@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 class AppSnackbar {
   static void show(
-      BuildContext context, {
-        required String title,
-        required String message,
-        required ContentType type,
-      }) {
+    BuildContext context, {
+    required String title,
+    required String message,
+    required ContentType type,
+  }) {
     final messenger = ScaffoldMessenger.of(context);
 
     messenger

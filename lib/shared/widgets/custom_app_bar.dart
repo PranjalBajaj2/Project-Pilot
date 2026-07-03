@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projectpilot/shared/widgets/app_logo.dart';
+import 'package:projectpilot/core/theme/app_colors.dart';
 
 class CustomAppBar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -18,6 +18,7 @@ class CustomAppBar extends StatelessWidget
       title: Text(title),
       centerTitle: false,
       elevation: 0,
+      backgroundColor: AppColors.primary,
     );
 
   }
