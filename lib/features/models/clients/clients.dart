@@ -1,14 +1,106 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:projectpilot/routes/route_names.dart';
+import 'package:provider/provider.dart';
 
-class ClientsScreen extends StatelessWidget {
+import '../../../shared/client_widgets/client_card.dart';
+import '../../auth/providers/client_provider.dart';
+
+class ClientsScreen extends StatefulWidget {
   const ClientsScreen({super.key});
 
   @override
+  State<ClientsScreen> createState() => _ClientsScreenState();
+}
+
+class _ClientsScreenState extends State<ClientsScreen> {
+  final searchController = TextEditingController();
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //
+  //   Future.microtask(() {
+  //
+  //     context.read<ClientProvider>().listenClients();
+  //
+  //   });
+  //
+  // }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        "Clients",
-        style: TextStyle(fontSize: 28),
+    final provider = context.watch<ClientProvider>();
+
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.push(RouteNames.addClient);
+        },
+
+        child: const Icon(Icons.add),
+      ),
+
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+
+        child: Column(
+          children: [
+            TextField(
+              controller: searchController,
+
+              onChanged: provider.searchClient,
+
+              decoration: const InputDecoration(
+                prefixIcon: Icon(Icons.search),
+
+                hintText: "Search Client",
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            Expanded(
+              child: Builder(
+                builder: (_) {
+                  if (provider.isLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (provider.error != null) {
+                    return Center(
+                      child: Text(provider.error!),
+                    );
+                  }
+
+                  if (provider.clients.isEmpty) {
+                    return const Center(child: Text("No Clients Found"));
+                  }
+
+                  return ListView.builder(
+                    itemCount: provider.clients.length,
+                    itemBuilder: (context, index) {
+                      final client = provider.clients[index];
+
+                      return ClientTile(
+                        client: client,
+                        onEdit: () {
+                          context.push('/edit-client', extra: client);
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
