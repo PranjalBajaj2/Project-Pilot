@@ -19,7 +19,7 @@ class AppTheme {
     appBarTheme: const AppBarTheme(
       elevation: 0,
       centerTitle: false,
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppColors.primary,
       foregroundColor: AppColors.textPrimary,
     ),
 
