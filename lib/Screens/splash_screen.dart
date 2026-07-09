@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:projectpilot/Screens/login_screen.dart';
+import 'package:projectpilot/core/theme/app_colors.dart';
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});
 
@@ -17,7 +18,7 @@ class _SplashscreenState extends State<Splashscreen> {
   void initState() {
     super.initState();
 
-    _timer = Timer(const Duration(seconds: 3), () {
+    _timer = Timer(const Duration(seconds: 600), () {
       if (mounted) {
         Navigator.pushReplacement(
           context,
@@ -44,7 +45,7 @@ class _SplashscreenState extends State<Splashscreen> {
 
   Widget _buildDesktop() {
     return Scaffold(
-      backgroundColor: Color(0xFFE18D5D),
+      backgroundColor: AppColors.primary,
       body: SafeArea(
         child: Center(
           child: Row(
@@ -54,26 +55,24 @@ class _SplashscreenState extends State<Splashscreen> {
 
               // IMAGE (center aligned in row)
               Image.asset(
-                "images/splash.png",
-                width: 300,
-                height: 325,
+                "images/splash_screen.jpg",
+                 width: 700,
+                // height: 325,
                 fit: BoxFit.cover,
               ),
 
               const SizedBox(width: 5),
 
               // TEXT COLUMN (right side)
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    "images/logo.jpg",
-                    width: 400,
-                    height: 250,
-                    fit: BoxFit.cover,
-                  ),],
-              ),
+              // Column(
+              //   mainAxisSize: MainAxisSize.min,
+              //   crossAxisAlignment: CrossAxisAlignment.center,
+              //   children: [
+              //     AppLogo(size: 46,),
+              //     Text("Where freelancers fly forward.",
+              //       style: GoogleFonts.quicksand(fontSize: 18,fontWeight: FontWeight.w600)
+              //)
+
             ],
           ),
 
@@ -85,7 +84,7 @@ class _SplashscreenState extends State<Splashscreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Color(0xFFE18D5D),
+      backgroundColor: AppColors.primary,
       body: SafeArea(
         child: Center(
           child: Column(
@@ -95,20 +94,20 @@ class _SplashscreenState extends State<Splashscreen> {
 
               // IMAGE (center aligned in row)
               Image.asset(
-                "images/splash.png",
-                width: width * 0.5,
-                height: height * 0.2,
+                "images/mobile_splash.jpg",
+                width: width * 0.7,
+                //height: height * 0.2,
                 fit: BoxFit.cover,
               ),
 
               const SizedBox(height: 20),
 
-              Image.asset(
-                "images/logo.jpg",
-                width: 400,
-                height: 250,
-                fit: BoxFit.cover,
-              ),
+              // AppLogo(size: 46,),
+              //     Text("Where freelancers fly forward.",
+              //       style: GoogleFonts.quicksand(fontSize: 18,fontWeight: FontWeight.w600)
+              // )
+
+
             ],
           ),
         ),

@@ -168,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 AppSnackbar.show(
                   context,
                   title: "Congratulations",
-                  message: "login Successfully",
+                  message: "Login Successfully",
                   type: ContentType.success,
                 );
                 context.go(RouteNames.main);
