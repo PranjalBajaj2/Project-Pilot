@@ -3,8 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:projectpilot/core/theme/app_colors.dart';
 import 'package:projectpilot/shared/widgets/custom_app_bar.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:provider/provider.dart';
 
+import '../../../shared/widgets/app_snackbar.dart';
 import '../../auth/models/client_model.dart';
 import '../../auth/providers/client_provider.dart';
 
@@ -57,7 +59,12 @@ class _AddClientScreenState extends State<AddClientScreen> {
                   labelText: "Client Name",
                   prefixIcon: Icon(Icons.person_rounded),
                 ),
-                validator: (v) => v!.isEmpty ? "Client Name is Required" : null,
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return "Client name is required";
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 10),
               TextFormField(
@@ -66,8 +73,12 @@ class _AddClientScreenState extends State<AddClientScreen> {
                   labelText: "Client Project",
                   prefixIcon: Icon(Icons.folder_copy_outlined),
                 ),
-                validator: (v) =>
-                    v!.isEmpty ? "Project Name is Required" : null,
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return "Project name is required";
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 10),
 
@@ -143,14 +154,22 @@ class _AddClientScreenState extends State<AddClientScreen> {
                     createdAt: Timestamp.now(),
                   );
 
+
                   await context.read<ClientProvider>().addClient(client);
 
                   if (!mounted) return;
+                  AppSnackbar.show(
+                    context,
+                    title: "Success",
+                    message: "Client Added Successfully",
+                    type: ContentType.success,
+                  );
 
                   Navigator.pop(context);
                 },
 
-                child: const Text("Save Client"),
+                child: const Text("Save Client",
+                style: TextStyle(fontSize: 18),),
               ),
             ],
           ),

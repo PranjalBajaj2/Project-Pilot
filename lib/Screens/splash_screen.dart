@@ -18,7 +18,7 @@ class _SplashscreenState extends State<Splashscreen> {
   void initState() {
     super.initState();
 
-    _timer = Timer(const Duration(seconds: 600), () {
+    _timer = Timer(const Duration(seconds: 4), () {
       if (mounted) {
         Navigator.pushReplacement(
           context,

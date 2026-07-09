@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import '../../../shared/widgets/app_snackbar.dart';
+import '../../../shared/widgets/custom_app_bar.dart';
 import '../../auth/models/client_model.dart';
 import '../../auth/providers/client_provider.dart';
 
@@ -83,9 +85,13 @@ class _EditClientScreenState extends State<EditClientScreen> {
 
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Client Updated Successfully")),
+      AppSnackbar.show(
+        context,
+        title: "Success",
+        message: "Client Updated Successfully",
+        type: ContentType.success,
       );
+
 
       context.pop();
     } catch (e) {
@@ -106,16 +112,18 @@ class _EditClientScreenState extends State<EditClientScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Edit Client")),
-      body: SingleChildScrollView(
+      appBar: CustomAppBar(title: "Edit Client"),
+      body: Padding(
         padding: const EdgeInsets.all(20),
         child: Form(
           key: _formKey,
-          child: Column(
+          child: ListView(
             children: [
               TextFormField(
                 controller: nameController,
-                decoration: const InputDecoration(labelText: "Client Name"),
+                decoration: const InputDecoration(
+                    labelText: "Client Name",
+                  prefixIcon: Icon(Icons.person_rounded),),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
                     return "Client name is required";
@@ -124,10 +132,12 @@ class _EditClientScreenState extends State<EditClientScreen> {
                 },
               ),
 
-              const SizedBox(height: 15),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: projectController,
-                decoration: const InputDecoration(labelText: "Project Name"),
+                decoration: const InputDecoration(
+                    labelText: "Project Name",
+                  prefixIcon: Icon(Icons.folder_copy_outlined),),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
                     return "Project name is required";
@@ -136,42 +146,54 @@ class _EditClientScreenState extends State<EditClientScreen> {
                 },
               ),
 
-              const SizedBox(height: 15),
+              const SizedBox(height: 10),
 
               TextFormField(
                 controller: companyController,
-                decoration: const InputDecoration(labelText: "Company"),
+                decoration: const InputDecoration(
+                    labelText: "Company",
+                  prefixIcon: Icon(Icons.home_outlined),),
               ),
 
-              const SizedBox(height: 15),
+              const SizedBox(height: 10),
 
               TextFormField(
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(labelText: "Email"),
+                decoration: const InputDecoration(
+                    labelText: "Email",
+                  prefixIcon: Icon(Icons.email_outlined),
+                ),
               ),
-
-              const SizedBox(height: 15),
+              const SizedBox(height: 10),
 
               TextFormField(
                 controller: phoneController,
                 keyboardType: TextInputType.phone,
-                decoration: const InputDecoration(labelText: "Phone"),
+                decoration: const InputDecoration(
+                    labelText: "Phone",
+                  prefixIcon: Icon(Icons.phone_outlined),
+                ),
               ),
 
-              const SizedBox(height: 15),
+              const SizedBox(height: 10),
 
               TextFormField(
                 controller: addressController,
-                decoration: const InputDecoration(labelText: "Address"),
+                decoration: const InputDecoration(
+                    labelText: "Address",
+                  prefixIcon: Icon(Icons.location_on_outlined),),
               ),
 
-              const SizedBox(height: 15),
+              const SizedBox(height: 10),
 
               TextFormField(
                 controller: notesController,
-                maxLines: 4,
-                decoration: const InputDecoration(labelText: "Notes"),
+                maxLines: 3,
+                decoration: const InputDecoration(
+                  labelText: "Notes",
+                  prefixIcon: Icon(Icons.speaker_notes_outlined),
+                ),
               ),
 
               const SizedBox(height: 30),
@@ -185,12 +207,10 @@ class _EditClientScreenState extends State<EditClientScreen> {
                       ? const SizedBox(
                           height: 22,
                           width: 22,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: Colors.white,
-                          ),
+                          child: CircularProgressIndicator(),
                         )
-                      : const Text("Update Client"),
+                      : const Text("Update Client",
+                    style: TextStyle(fontSize: 18),),
                 ),
               ),
             ],

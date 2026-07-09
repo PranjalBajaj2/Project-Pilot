@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:projectpilot/routes/route_names.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/theme/app_colors.dart';
 import '../../../shared/client_widgets/client_card.dart';
 import '../../auth/providers/client_provider.dart';
 
@@ -16,17 +17,6 @@ class ClientsScreen extends StatefulWidget {
 class _ClientsScreenState extends State<ClientsScreen> {
   final searchController = TextEditingController();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //
-  //   Future.microtask(() {
-  //
-  //     context.read<ClientProvider>().listenClients();
-  //
-  //   });
-  //
-  // }
 
   @override
   void dispose() {
@@ -41,11 +31,13 @@ class _ClientsScreenState extends State<ClientsScreen> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        tooltip: "Add new Client",
+        hoverColor: AppColors.primary,
         onPressed: () {
           context.push(RouteNames.addClient);
         },
 
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.person_add),
       ),
 
       body: Padding(
