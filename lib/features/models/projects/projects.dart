@@ -95,7 +95,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                       return ProjectTile(
                           project: project,
                           onEdit: () {
-                            context.push('/edit-client', extra: project);
+                            context.push('/edit-project', extra: project);
                           },
                       );
                     },

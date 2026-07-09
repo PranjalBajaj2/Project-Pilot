@@ -1,31 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectpilot/features/auth/models/project_model.dart';
 import 'package:projectpilot/features/auth/providers/project_provider.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:projectpilot/shared/widgets/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../../../shared/widgets/app_snackbar.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import '../../../shared/widgets/custom_app_bar.dart';
 import '../../auth/models/client_model.dart';
 import '../../auth/providers/client_provider.dart';
 
-class AddProjectScreen extends StatefulWidget {
-  const AddProjectScreen({super.key});
+class EditProjectScreen extends StatefulWidget {
+  final ProjectModel project;
+
+  const EditProjectScreen({super.key, required this.project});
 
   @override
-  State<AddProjectScreen> createState() => _AddProjectScreenState();
+  State<EditProjectScreen> createState() => _EditProjectScreenState();
 }
 
-class _AddProjectScreenState extends State<AddProjectScreen> {
+class _EditProjectScreenState extends State<EditProjectScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final projectNameController = TextEditingController();
-
-  final descriptionController = TextEditingController();
-
-  final budgetController = TextEditingController();
+  late final TextEditingController projectNameController;
+  late final TextEditingController descriptionController;
+  late final TextEditingController budgetController;
   ClientModel? selectedClient;
 
   String selectedCurrency = "PKR";
@@ -39,12 +40,96 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
   static const statuses = ["Pending", "In Progress", "Completed", "Cancelled"];
   bool isLoading = false;
 
+  bool isSaving = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    projectNameController = TextEditingController(text: widget.project.projectName);;
+
+    descriptionController = TextEditingController(text: widget.project.description);;
+
+    budgetController = TextEditingController(text: widget.project.budget.toString());
+
+    selectedCurrency = widget.project.currency;
+    selectedStatus = widget.project.status;
+
+    startDate = widget.project.startDate.toDate();
+    deadline = widget.project.deadline.toDate();
+  }
+
+
   @override
   void dispose() {
     projectNameController.dispose();
     descriptionController.dispose();
     budgetController.dispose();
     super.dispose();
+  }
+
+  Future<void> updateProject() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    if (startDate == null || deadline == null) {
+      AppSnackbar.show(
+        context,
+        title: "Date",
+        message: "Please select both dates",
+        type: ContentType.warning,
+      );
+      return;
+    }
+
+    setState(() {
+      isSaving = true;
+    });
+
+    final updatedProject = ProjectModel(
+      id: widget.project.id ?? "",
+      userId: FirebaseAuth.instance.currentUser!.uid,
+      clientId: selectedClient!.id,
+      clientName: selectedClient!.name,
+      projectName: projectNameController.text.trim(),
+      description: descriptionController.text.trim(),
+      budget: double.parse(budgetController.text),
+      currency: selectedCurrency,
+      status: selectedStatus,
+      startDate: Timestamp.fromDate(startDate!),
+      deadline: Timestamp.fromDate(deadline!),
+      createdAt: widget.project.createdAt ?? Timestamp.now(),
+    );
+
+    try {
+      await context.read<ProjectProvider>().updateProject(updatedProject);
+
+      if (!mounted) return;
+
+      AppSnackbar.show(
+        context,
+        title: "Success",
+        message: "Project Updated Successfully",
+        type: ContentType.success,
+      );
+
+
+      context.pop();
+    } catch (e) {
+      if (!mounted) return;
+
+      AppSnackbar.show(
+        context,
+        title: "Error",
+        message: e.toString(),
+        type: ContentType.failure,
+      );
+    }
+
+    if (mounted) {
+      setState(() {
+        isSaving = false;
+      });
+    }
   }
 
   @override
@@ -68,7 +153,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                   prefixIcon: Icon(Icons.insert_drive_file_outlined),
                 ),
                 validator: (v) =>
-                    v!.isEmpty ? "Project Name is Required" : null,
+                v!.isEmpty ? "Project Name is Required" : null,
               ),
               const SizedBox(height: 10),
               TextFormField(
@@ -113,6 +198,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                         ? "Select Start Date"
                         : "${startDate!.day}/${startDate!.month}/${startDate!.year}",
                   ),
+
                 ),
               ),
 
@@ -197,61 +283,15 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
               const SizedBox(height: 20),
 
               ElevatedButton(
-                onPressed: () async {
-                  if (!_formKey.currentState!.validate()) return;
-                  if (startDate == null || deadline == null) {
-                    AppSnackbar.show(
-                      context,
-                      title: "Date",
-                      message: "Please select both dates",
-                      type: ContentType.warning,
-                    );
-                    return;
-                  }
-
-                  final project = ProjectModel(
-                    id: "",
-                    userId: FirebaseAuth.instance.currentUser!.uid,
-                    clientId: selectedClient!.id,
-                    clientName: selectedClient!.name,
-                    projectName: projectNameController.text,
-                    description: descriptionController.text,
-                    budget: double.parse(budgetController.text),
-                    currency: selectedCurrency,
-                    status: selectedStatus,
-                    startDate: Timestamp.fromDate(startDate!),
-                    deadline: Timestamp.fromDate(deadline!),
-                    createdAt: Timestamp.now(),
-                  );
-                  try {
-                    await context.read<ProjectProvider>().addProject(project);
-
-                    if (!mounted) return;
-
-                    AppSnackbar.show(
-                      context,
-                      title: "Success",
-                      message: "Project Added Successfully",
-                      type: ContentType.success,
-                    );
-
-                    Navigator.pop(context);
-                  } catch (e) {
-                    if (!mounted) return;
-
-                    AppSnackbar.show(
-                      context,
-                      title: "Error",
-                      message: e.toString(),
-                      type: ContentType.failure,
-                    );
-                  }
-                },
-
-                child: const Text("Save Project",
-                style: TextStyle(
-                  fontSize: 18
-                ),),
+                onPressed: isSaving ? null : updateProject,
+                child: isSaving
+                    ? const SizedBox(
+                  height: 22,
+                  width: 22,
+                  child: CircularProgressIndicator(),
+                )
+                    : const Text("Update Project",
+                style: TextStyle(fontSize: 18),),
               ),
             ],
           ),
