@@ -9,8 +9,10 @@ class PaymentModel {
 
   final String projectId;
   final String? projectName;
-  final String notes;
-
+  final String? notes;
+  final String paymentMethod;
+  final String status;
+  final String currency;
   final double amount;
 
   final Timestamp paymentDate;
@@ -20,10 +22,13 @@ class PaymentModel {
     required this.id,
     required this.userId,
     required this.clientId,
-    this.clientName,
+    required this.clientName,
     required this.projectId,
-    this.projectName,
+    required this.projectName,
+    required this.paymentMethod,
+    required this.status,
     required this.notes,
+    required this.currency,
     required this.amount,
     required this.paymentDate,
     required this.createdAt,
@@ -31,11 +36,14 @@ class PaymentModel {
 
   Map<String, dynamic> toMap(){
     return{
-      "userId": userId,
+      "userId":   userId,
       "clientId": clientId,
       "clientName": clientName,
       "projectId": projectId,
       "projectName": projectName,
+      "paymentMethod": paymentMethod,
+      "status": status,
+      "currency": currency,
       "notes": notes,
       "amount": amount,
       "paymentDate": paymentDate,
@@ -52,8 +60,11 @@ class PaymentModel {
         clientId: map["clientId"],
         clientName: map["clientName"],
         projectId: map["projectId"],
-        projectName: map["projectNAme"],
+        projectName: map["projectName"],
         notes: map["notes"],
+        paymentMethod: map["paymentMethod"],
+        status: map["status"],
+        currency: map["currency"],
         amount: map["amount"],
         paymentDate: map["paymentDate"],
         createdAt: map["createdAt"]

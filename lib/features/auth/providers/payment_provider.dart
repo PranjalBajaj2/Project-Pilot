@@ -43,4 +43,35 @@ class PaymentProvider extends ChangeNotifier{
       },
     );
   }
+  void searchPayment(String value){
+    if(value.isEmpty){
+      _filteredPayments = _payments;
+    }
+    else{
+      _filteredPayments = _payments.where((payments){
+        return payments.clientName!.toLowerCase().contains(
+          value.toLowerCase(),)||
+        payments.projectName!.toLowerCase().contains(
+        value.toLowerCase()
+        );
+
+      }).toList();
+    }
+    notifyListeners();
+  }
+  Future<void> addPayment(PaymentModel payment) async{
+    await _repository.addPaymnet(payment);
+  }
+  Future<void> updatePayment(PaymentModel payment) async{
+    await _repository.updatePayment(payment);
+  }
+  Future<void> deletePayment(String id) async{
+    await _repository.deletePayment(id);
+  }
+
+  @override
+  void dispose() {
+    _subscription?.cancel();
+    super.dispose();
+  }
 }
