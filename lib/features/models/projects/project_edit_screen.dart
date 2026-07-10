@@ -135,6 +135,15 @@ class _EditProjectScreenState extends State<EditProjectScreen> {
   @override
   Widget build(BuildContext context) {
     final clients = context.watch<ClientProvider>().clients;
+    if (selectedClient == null && clients.isNotEmpty) {
+      try {
+        selectedClient = clients.firstWhere(
+              (client) => client.id == widget.project.clientId,
+        );
+      } catch (_) {
+        selectedClient = null;
+      }
+    }
     return Scaffold(
       appBar: CustomAppBar(title: "Add Project"),
 

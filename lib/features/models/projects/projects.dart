@@ -18,18 +18,6 @@ class ProjectsScreen extends StatefulWidget {
 class _ProjectsScreenState extends State<ProjectsScreen> {
   final searchController = TextEditingController();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //
-  //   Future.microtask(() {
-  //
-  //     context.read<ClientProvider>().listenClients();
-  //
-  //   });
-  //
-  // }
-
   @override
   void dispose() {
     searchController.dispose();
@@ -49,7 +37,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
           context.push(RouteNames.addProject);
         },
 
-        child: const Icon(Icons.add_box),
+        child: const Icon(Icons.monetization_on),
       ),
 
       body: Padding(
@@ -84,7 +72,13 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                   }
 
                   if (provider.projects.isEmpty) {
-                    return const Center(child: Text("No Projects Found"));
+                    return const Center(child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.folder_copy_outlined,size: 100,),
+                        Text("No Projects Found",style: TextStyle(fontSize: 25),)
+                      ],
+                    ));
                   }
 
                   return ListView.builder(
