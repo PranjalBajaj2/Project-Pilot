@@ -1,7 +1,6 @@
 import '../models/project_model.dart';
 import '../services/project_services.dart';
 
-
 class ProjectRepository {
   final ProjectService _service = ProjectService();
 

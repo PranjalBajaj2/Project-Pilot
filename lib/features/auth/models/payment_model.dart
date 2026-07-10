@@ -34,9 +34,9 @@ class PaymentModel {
     required this.createdAt,
   });
 
-  Map<String, dynamic> toMap(){
-    return{
-      "userId":   userId,
+  Map<String, dynamic> toMap() {
+    return {
+      "userId": userId,
       "clientId": clientId,
       "clientName": clientName,
       "projectId": projectId,
@@ -47,27 +47,25 @@ class PaymentModel {
       "notes": notes,
       "amount": amount,
       "paymentDate": paymentDate,
-      "createdAt": createdAt
+      "createdAt": createdAt,
     };
   }
-  factory PaymentModel.fromMap(
-      String id,
-      Map<String,dynamic> map,
-      ){
+
+  factory PaymentModel.fromMap(String id, Map<String, dynamic> map) {
     return PaymentModel(
-        id: id,
-        userId: map["userId"],
-        clientId: map["clientId"],
-        clientName: map["clientName"],
-        projectId: map["projectId"],
-        projectName: map["projectName"],
-        notes: map["notes"],
-        paymentMethod: map["paymentMethod"],
-        status: map["status"],
-        currency: map["currency"],
-        amount: map["amount"],
-        paymentDate: map["paymentDate"],
-        createdAt: map["createdAt"]
+      id: id,
+      userId: map["userId"],
+      clientId: map["clientId"],
+      clientName: map["clientName"],
+      projectId: map["projectId"],
+      projectName: map["projectName"],
+      notes: map["notes"],
+      paymentMethod: map["paymentMethod"],
+      status: map["status"],
+      currency: map["currency"],
+      amount: map["amount"],
+      paymentDate: map["paymentDate"],
+      createdAt: map["createdAt"],
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:projectpilot/features/auth/project_enums.dart';
 
 class ProjectModel {
   final String id;
@@ -8,14 +7,13 @@ class ProjectModel {
   final String clientId;
   final String? clientName;
 
-  final String projectName;
+  final String? projectName;
   final String description;
 
   final double budget;
   final String currency;
 
   final String status;
-
 
   final Timestamp startDate;
   final Timestamp deadline;
@@ -53,10 +51,7 @@ class ProjectModel {
     };
   }
 
-  factory ProjectModel.fromMap(
-      String id,
-      Map<String, dynamic> map,
-      ) {
+  factory ProjectModel.fromMap(String id, Map<String, dynamic> map) {
     return ProjectModel(
       id: id,
       userId: map["userId"],
@@ -73,12 +68,10 @@ class ProjectModel {
     );
   }
 }
+
 extension ProjectStatusExtension on ProjectStatus {
-
   String get label {
-
-    switch(this){
-
+    switch (this) {
       case ProjectStatus.pending:
         return "Pending";
 
@@ -90,9 +83,8 @@ extension ProjectStatusExtension on ProjectStatus {
 
       case ProjectStatus.cancelled:
         return "Cancelled";
-
     }
-
   }
-
 }
+
+enum ProjectStatus { pending, inProgress, completed, cancelled }

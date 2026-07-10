@@ -15,8 +15,7 @@ class AuthService {
     required String password,
   }) async {
     try {
-      final credential =
-      await _auth.createUserWithEmailAndPassword(
+      final credential = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -25,27 +24,21 @@ class AuthService {
         uid: credential.user!.uid,
         name: name,
         email: email,
+        phone: " ",
+        photoUrl: " ",
+        createdAt: Timestamp.now(),
       );
 
-      await _firestore
-          .collection('users')
-          .doc(user.uid)
-          .set(user.toMap());
-    }on FirebaseAuthException catch (e) {
+      await _firestore.collection('users').doc(user.uid).set(user.toMap());
+    } on FirebaseAuthException catch (e) {
       throw Exception(_firebaseError(e));
     }
   }
 
-  Future<void> login({
-    required String email,
-    required String password,
-  }) async {
-    try{
-    await _auth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-  }on FirebaseAuthException catch (e) {
+  Future<void> login({required String email, required String password}) async {
+    try {
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException catch (e) {
       throw Exception(_firebaseError(e));
     }
   }
@@ -54,12 +47,8 @@ class AuthService {
     await _auth.signOut();
   }
 
-  Future<void> forgotPassword(
-      String email,
-      ) async {
-    await _auth.sendPasswordResetEmail(
-      email: email,
-    );
+  Future<void> forgotPassword(String email) async {
+    await _auth.sendPasswordResetEmail(email: email);
   }
 }
 

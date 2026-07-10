@@ -21,25 +21,21 @@ class ProjectService {
 
   Stream<List<ProjectModel>> getProjects() {
     return _projectCollection
-        .where(
-      "userId",
-      isEqualTo: auth.currentUser!.uid,
-    ).snapshots()
+        .where("userId", isEqualTo: auth.currentUser!.uid)
+        .snapshots()
         .map((snapshot) {
-      return snapshot.docs.map((doc) {
-        return ProjectModel.fromMap(
-          doc.id,
-          doc.data() as Map<String, dynamic>,
-        );
-      }).toList();
-    });
+          return snapshot.docs.map((doc) {
+            return ProjectModel.fromMap(
+              doc.id,
+              doc.data() as Map<String, dynamic>,
+            );
+          }).toList();
+        });
   }
 
   Future<void> updateProject(ProjectModel project) async {
     try {
-      await _projectCollection
-          .doc(project.id)
-          .update(project.toMap());
+      await _projectCollection.doc(project.id).update(project.toMap());
     } catch (e) {
       rethrow;
     }

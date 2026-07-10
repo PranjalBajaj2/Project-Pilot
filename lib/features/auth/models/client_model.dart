@@ -16,13 +16,13 @@ class ClientModel {
     required this.id,
     required this.userId,
     required this.name,
-     this.company,
-     this.email,
-     this.phone,
-     this.address,
-     this.notes,
+    this.company,
+    this.email,
+    this.phone,
+    this.address,
+    this.notes,
     required this.createdAt,
-    required this.project
+    required this.project,
   });
 
   Map<String, dynamic> toMap() {
@@ -55,18 +55,18 @@ class ClientModel {
       createdAt: data['createdAt'],
     );
   }
-    factory ClientModel.fromMap(String id, Map<String, dynamic> map) {
-      return ClientModel(
-        id: id,
-        userId: map['userId'],
-        name: map['name'],
-        company: map['company'],
-        email: map['email'],
-        phone: map['phone'],
-        address: map['address'],
-        notes: map['notes'],
-        project: map['project'],
-        createdAt: map['createdAt'],
-      );
-    }
+  factory ClientModel.fromMap(String id, Map<String, dynamic> map) {
+    return ClientModel(
+      id: id,
+      userId: map['userId'],
+      name: map['name'],
+      company: map['company'],
+      email: map['email'],
+      phone: map['phone'],
+      address: map['address'],
+      notes: map['notes'],
+      project: map['project'],
+      createdAt: map['createdAt'],
+    );
   }
+}

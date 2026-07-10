@@ -51,7 +51,7 @@ class ProjectProvider extends ChangeNotifier {
       _filteredProjects = _projects;
     } else {
       _filteredProjects = _projects.where((project) {
-        return project.projectName.toLowerCase().contains(
+        return project.projectName!.toLowerCase().contains(
               value.toLowerCase(),
             ) ||
             project.clientName!.toLowerCase().contains(value.toLowerCase());

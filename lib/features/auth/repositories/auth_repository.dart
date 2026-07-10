@@ -8,30 +8,18 @@ class AuthRepository {
     required String email,
     required String password,
   }) {
-    return _service.register(
-      name: name,
-      email: email,
-      password: password,
-    );
+    return _service.register(name: name, email: email, password: password);
   }
 
-  Future<void> login({
-    required String email,
-    required String password,
-  }) {
-    return _service.login(
-      email: email,
-      password: password,
-    );
+  Future<void> login({required String email, required String password}) {
+    return _service.login(email: email, password: password);
   }
 
   Future<void> logout() {
     return _service.logout();
   }
 
-  Future<void> forgotPassword(
-      String email,
-      ) {
+  Future<void> forgotPassword(String email) {
     return _service.forgotPassword(email);
   }
 }
