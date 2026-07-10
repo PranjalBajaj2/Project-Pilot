@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../core/theme/app_colors.dart';
 import '../../features/models/navigation_item.dart';
 
 class DesktopNavigation extends StatelessWidget {
@@ -25,6 +27,7 @@ class DesktopNavigation extends StatelessWidget {
       onDestinationSelected: onTap,
 
       labelType: NavigationRailLabelType.all,
+      indicatorColor: AppColors.primary,
 
       destinations: items
           .map(

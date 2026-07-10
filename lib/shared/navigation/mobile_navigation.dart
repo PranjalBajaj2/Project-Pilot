@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectpilot/core/theme/app_colors.dart';
 
 import '../../features/models/navigation_item.dart';
 
@@ -24,13 +25,15 @@ class MobileNavigation extends StatelessWidget {
       selectedIndex: currentIndex,
 
       onDestinationSelected: onTap,
+      indicatorColor: AppColors.primary,
 
       destinations: items
           .map(
             (e) => NavigationDestination(
           icon: Icon(e.icon),
-          label: e.title,
+          label: (e.title),
         ),
+
       )
           .toList(),
     );
