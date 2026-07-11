@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class UpcomingPaymentTile extends StatelessWidget {
-
   final String client;
   final String amount;
 
@@ -13,23 +12,17 @@ class UpcomingPaymentTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return ListTile(
-
       contentPadding: EdgeInsets.zero,
 
-      leading: const Icon(Icons.payments),
+      leading: const Icon(Icons.monetization_on_outlined),
 
       title: Text(client),
 
       trailing: Text(
         amount,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-        ),
+        style: const TextStyle(fontWeight: FontWeight.bold),
       ),
-
     );
-
   }
 }

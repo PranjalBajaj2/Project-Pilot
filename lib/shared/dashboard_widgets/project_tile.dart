@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:projectpilot/features/auth/providers/project_provider.dart';
+import 'package:provider/provider.dart';
 
 class RecentProjectTile extends StatelessWidget {
-
   final String title;
   final String client;
 
@@ -13,22 +14,14 @@ class RecentProjectTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return ListTile(
-
       contentPadding: EdgeInsets.zero,
 
-      leading: const CircleAvatar(
-        child: Icon(Icons.folder_open),
-      ),
+      leading: const CircleAvatar(child: Icon(Icons.folder_copy_outlined)),
 
       title: Text(title),
 
       subtitle: Text(client),
-
-      trailing: const Icon(Icons.arrow_forward_ios,size:16),
-
     );
-
   }
 }
