@@ -4,10 +4,7 @@ import 'package:projectpilot/shared/widgets/app_logo.dart';
 class AuthLayout extends StatelessWidget {
   final Widget child;
 
-  const AuthLayout({
-    super.key,
-    required this.child,
-  });
+  const AuthLayout({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -23,22 +20,21 @@ class AuthLayout extends StatelessWidget {
               child: Container(
                 //color: const Color(0xFFE18D5D),
                 decoration: BoxDecoration(
-                    color: const Color(0xFFE18D5D)
-                //   image: DecorationImage(
-                //       image: AssetImage("images/splash.png"))
+                  color: const Color(0xFFE18D5D),
+                  //   image: DecorationImage(
+                  //       image: AssetImage("images/splash.png"))
                 ),
                 child: const Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      
                       Icon(
                         Icons.laptop_mac_outlined,
                         //color: Colors.white,
                         size: 90,
                       ),
                       SizedBox(height: 20),
-                      AppLogo(size: 46,),
+                      AppLogo(size: 46),
                       SizedBox(height: 10),
                       Text(
                         "Manage Clients.\nTrack Projects.\nGrow Faster.",
@@ -47,7 +43,7 @@ class AuthLayout extends StatelessWidget {
                           //color: Colors.white70,
                           fontSize: 18,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

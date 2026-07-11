@@ -12,11 +12,7 @@ class PaymentTile extends StatefulWidget {
   final PaymentModel payment;
   final VoidCallback onEdit;
 
-  const PaymentTile({
-    super.key,
-    required this.payment,
-    required this.onEdit,
-  });
+  const PaymentTile({super.key, required this.payment, required this.onEdit});
 
   @override
   State<PaymentTile> createState() => _PaymentTileState();
@@ -45,33 +41,24 @@ class _PaymentTileState extends State<PaymentTile> {
             width: 150,
             child: Text(
               title,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.w600),
             ),
           ),
-          Expanded(
-            child: Text(value(valueText)),
-          ),
+          Expanded(child: Text(value(valueText))),
         ],
       ),
     );
   }
 
   Future<void> deleteClient() async {
-    final provider = Provider.of<PaymentProvider>(
-      context,
-      listen: false,
-    );
+    final provider = Provider.of<PaymentProvider>(context, listen: false);
 
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: const Text("Delete Payment"),
-          content: const Text(
-            "Are you sure you want to delete this Payment?",
-          ),
+          content: const Text("Are you sure you want to delete this Payment?"),
           actions: [
             TextButton(
               onPressed: () {
@@ -93,7 +80,6 @@ class _PaymentTileState extends State<PaymentTile> {
     if (confirm == true) {
       await provider.deletePayment(widget.payment.id);
 
-
       if (mounted) {
         AppSnackbar.show(
           context,
@@ -110,10 +96,7 @@ class _PaymentTileState extends State<PaymentTile> {
     final payment = widget.payment;
 
     return Card(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 8,
-      ),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 2,
       child: Column(
         children: [
@@ -126,57 +109,23 @@ class _PaymentTileState extends State<PaymentTile> {
             },
             child: Padding(
               padding: const EdgeInsets.all(16),
-              child: expanded?
-              Column(
+              child: Row(
                 children: [
                   CircleAvatar(
-                    radius: 25,
-                    child: Text( payment.projectName != null &&
-                        payment.projectName!.isNotEmpty
-                        ? payment.projectName![0].toUpperCase()
-                        : "?",style: const TextStyle(fontSize: 24),
+                    child: Text(
+                      payment.projectName != null &&
+                              payment.projectName!.isNotEmpty
+                          ? payment.projectName![0].toUpperCase()
+                          : "?",
                     ),
-                  ),
-
-                  const SizedBox(height: 10),
-
-                  Text(
-                    value(payment.projectName!.toUpperCase()),
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: AnimatedRotation(
-                      turns: expanded ? 0.5 : 0,
-                      duration: const Duration(milliseconds: 250),
-                      child: const Icon(
-                        Icons.keyboard_arrow_down,
-                        color: AppColors.error,
-                      ),
-                    ),
-                  ),
-                  const Divider(),
-                ],
-              )
-                  : Row(
-                children: [
-                  CircleAvatar(
-                    child: Text( payment.projectName != null &&
-                        payment.projectName!.isNotEmpty
-                        ? payment.projectName![0].toUpperCase()
-                        : "?",),
                   ),
                   const SizedBox(width: 14),
                   Expanded(
                     child: Column(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          value(payment.projectName),
+                          value(payment.projectName?.toUpperCase()),
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 17,
@@ -185,16 +134,7 @@ class _PaymentTileState extends State<PaymentTile> {
                         const SizedBox(height: 4),
                         Text(
                           value(payment.clientName),
-                          style: TextStyle(
-                            color: Colors.grey.shade600,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          "${payment.currency} ${payment.amount.toStringAsFixed(0)}",
-                          style: TextStyle(
-                            color: Colors.grey.shade600,
-                          ),
+                          style: TextStyle(color: Colors.grey.shade600),
                         ),
                       ],
                     ),
@@ -219,15 +159,12 @@ class _PaymentTileState extends State<PaymentTile> {
                 : CrossFadeState.showFirst,
             firstChild: const SizedBox(),
             secondChild: Padding(
-              padding: const EdgeInsets.fromLTRB(
-                16,
-                0,
-                16,
-                16,
-              ),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const Divider(),
 
                   buildRow("Project Name:", payment.projectName),
 
@@ -253,7 +190,7 @@ class _PaymentTileState extends State<PaymentTile> {
                             style: TextStyle(fontWeight: FontWeight.w600),
                           ),
                         ),
-                        paymentChip(payment.paymentMethod)
+                        paymentChip(payment.paymentMethod),
                       ],
                     ),
                   ),
@@ -274,7 +211,6 @@ class _PaymentTileState extends State<PaymentTile> {
                       ],
                     ),
                   ),
-
 
                   const SizedBox(height: 20),
 
@@ -311,6 +247,7 @@ class _PaymentTileState extends State<PaymentTile> {
     );
   }
 }
+
 Widget statusChip(String status) {
   Color color;
 
@@ -332,13 +269,11 @@ Widget statusChip(String status) {
     side: BorderSide.none,
     label: Text(
       status,
-      style: TextStyle(
-        color: color,
-        fontWeight: FontWeight.bold,
-      ),
+      style: TextStyle(color: color, fontWeight: FontWeight.bold),
     ),
   );
 }
+
 Widget paymentChip(String paymentMethod) {
   //Icon icon;
   Color color;
@@ -347,16 +282,24 @@ Widget paymentChip(String paymentMethod) {
     case "Cash":
       color = Colors.white54;
 
-    case "Jazzcash":
+    case "JazzCash":
       color = AppColors.error;
       break;
 
-    case "Easypaisa":
+    case "EasyPaisa":
       color = AppColors.success;
       break;
 
     case "Bank Transfer":
       color = Colors.blue;
+      break;
+
+    case "PayPal":
+      color = Color(0xFF0B112E);
+      break;
+
+    case "Stripe":
+      color = Color(0xFF184885);
       break;
 
     default:
@@ -368,10 +311,7 @@ Widget paymentChip(String paymentMethod) {
     side: BorderSide.none,
     label: Text(
       paymentMethod,
-      style: TextStyle(
-        color: color,
-        fontWeight: FontWeight.bold,
-      ),
+      style: TextStyle(color: color, fontWeight: FontWeight.bold),
     ),
   );
 }

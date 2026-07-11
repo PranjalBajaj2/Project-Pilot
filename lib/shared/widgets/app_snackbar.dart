@@ -21,7 +21,7 @@ class AppSnackbar {
             top: 20,
             left: 16,
             right: 16,
-            bottom: MediaQuery.of(context).size.height - 180,
+            bottom: MediaQuery.of(context).size.height - 200,
           ),
           duration: const Duration(seconds: 3),
           content: AwesomeSnackbarContent(

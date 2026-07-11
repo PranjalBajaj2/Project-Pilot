@@ -11,11 +11,7 @@ class ClientTile extends StatefulWidget {
   final ClientModel client;
   final VoidCallback onEdit;
 
-  const ClientTile({
-    super.key,
-    required this.client,
-    required this.onEdit,
-  });
+  const ClientTile({super.key, required this.client, required this.onEdit});
 
   @override
   State<ClientTile> createState() => _ClientTileState();
@@ -41,36 +37,27 @@ class _ClientTileState extends State<ClientTile> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 90,
+            width: 150,
             child: Text(
               title,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.w600),
             ),
           ),
-          Expanded(
-            child: Text(value(valueText)),
-          ),
+          Expanded(child: Text(value(valueText))),
         ],
       ),
     );
   }
 
   Future<void> deleteClient() async {
-    final provider = Provider.of<ClientProvider>(
-      context,
-      listen: false,
-    );
+    final provider = Provider.of<ClientProvider>(context, listen: false);
 
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: const Text("Delete Client"),
-          content: const Text(
-            "Are you sure you want to delete this client?",
-          ),
+          content: const Text("Are you sure you want to delete this client?"),
           actions: [
             TextButton(
               onPressed: () {
@@ -92,7 +79,6 @@ class _ClientTileState extends State<ClientTile> {
     if (confirm == true) {
       await provider.deleteClient(widget.client.id);
 
-
       if (mounted) {
         AppSnackbar.show(
           context,
@@ -109,10 +95,7 @@ class _ClientTileState extends State<ClientTile> {
     final client = widget.client;
 
     return Card(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 8,
-      ),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 2,
       child: Column(
         children: [
@@ -127,17 +110,14 @@ class _ClientTileState extends State<ClientTile> {
               padding: const EdgeInsets.all(16),
               child: Row(
                 children: [
-                  CircleAvatar(
-                    child: Text(client.name![0].toUpperCase()),
-                  ),
+                  CircleAvatar(child: Text(client.name![0].toUpperCase())),
                   const SizedBox(width: 14),
                   Expanded(
                     child: Column(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          value(client.name),
+                          value(client.name?.toUpperCase()),
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 17,
@@ -146,9 +126,7 @@ class _ClientTileState extends State<ClientTile> {
                         const SizedBox(height: 4),
                         Text(
                           value(client.project),
-                          style: TextStyle(
-                            color: Colors.grey.shade600,
-                          ),
+                          style: TextStyle(color: Colors.grey.shade600),
                         ),
                       ],
                     ),
@@ -173,21 +151,17 @@ class _ClientTileState extends State<ClientTile> {
                 : CrossFadeState.showFirst,
             firstChild: const SizedBox(),
             secondChild: Padding(
-              padding: const EdgeInsets.fromLTRB(
-                16,
-                0,
-                16,
-                16,
-              ),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
               child: Column(
                 children: [
                   const Divider(),
 
+                  buildRow("Client Name:", client.name),
+                  buildRow("Project:", client.project),
                   buildRow("Email:", client.email),
                   buildRow("Phone:", client.phone),
                   buildRow("Company:", client.company),
                   buildRow("Address:", client.address),
-                  buildRow("Project:", client.project),
                   buildRow("Notes:", client.notes),
 
                   const SizedBox(height: 18),
@@ -210,7 +184,6 @@ class _ClientTileState extends State<ClientTile> {
                           onPressed: deleteClient,
                           icon: const Icon(Icons.delete),
                           label: const Text("Delete"),
-
                         ),
                       ),
                     ],
