@@ -72,7 +72,13 @@ class _ClientsScreenState extends State<ClientsScreen> {
                   }
 
                   if (provider.clients.isEmpty) {
-                    return const Center(child: Text("No Clients Found"));
+                    return const Center(child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.people_outline,size: 100,),
+                        Text("No Clients Found",style: TextStyle(fontSize: 25),)
+                      ],
+                    ));
                   }
 
                   return ListView.builder(

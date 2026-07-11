@@ -36,10 +36,16 @@ class _AddPaymentScreenState extends State<AddPaymentScreen> {
 
   DateTime? paymentDate;
 
-
   static const currencies = ["PKR", "USD", "EUR", "GBP"];
   static const statuses = ["Pending", "Received"];
-  static const paymentMethods = ["Cash", "Bank Transfer", "JazzCash", "EasyPaisa", "PayPal", "Stripe"];
+  static const paymentMethods = [
+    "Cash",
+    "Bank Transfer",
+    "JazzCash",
+    "EasyPaisa",
+    "PayPal",
+    "Stripe",
+  ];
   bool isLoading = false;
   bool isSaving = false;
 
@@ -99,7 +105,7 @@ class _AddPaymentScreenState extends State<AddPaymentScreen> {
                 items: projects.map((project) {
                   return DropdownMenuItem(
                     value: project,
-                    child: Text(project.projectName?? " "),
+                    child: Text(project.projectName ?? " "),
                   );
                 }).toList(),
                 onChanged: (value) {
@@ -142,7 +148,7 @@ class _AddPaymentScreenState extends State<AddPaymentScreen> {
                   prefixIcon: Icon(Icons.attach_money_rounded),
                 ),
                 validator: (v) =>
-                v!.isEmpty ? "Project Amount is Required" : null,
+                    v!.isEmpty ? "Project Amount is Required" : null,
               ),
               const SizedBox(height: 12),
               InkWell(
@@ -206,7 +212,7 @@ class _AddPaymentScreenState extends State<AddPaymentScreen> {
               ElevatedButton(
                 onPressed: () async {
                   if (!_formKey.currentState!.validate()) return;
-                  if (paymentDate == null ) {
+                  if (paymentDate == null) {
                     AppSnackbar.show(
                       context,
                       title: "Date",
@@ -217,19 +223,19 @@ class _AddPaymentScreenState extends State<AddPaymentScreen> {
                   }
 
                   final payment = PaymentModel(
-                      id: "",
-                      userId: FirebaseAuth.instance.currentUser!.uid,
-                      clientId: selectedClient!.id,
-                      clientName: selectedClient!.name,
-                      projectId: selectedProject!.id,
-                      projectName: selectedProject!.projectName,
-                      paymentMethod: selectedMethod,
-                      status: selectedStatus,
-                      notes: notesController.text,
-                      currency: selectedCurrency,
-                      amount: double.parse(amountController.text),
-                      paymentDate: Timestamp.fromDate(paymentDate!),
-                      createdAt: Timestamp.now()
+                    id: "",
+                    userId: FirebaseAuth.instance.currentUser!.uid,
+                    clientId: selectedClient!.id,
+                    clientName: selectedClient!.name,
+                    projectId: selectedProject!.id,
+                    projectName: selectedProject!.projectName,
+                    paymentMethod: selectedMethod,
+                    status: selectedStatus,
+                    notes: notesController.text,
+                    currency: selectedCurrency,
+                    amount: double.parse(amountController.text),
+                    paymentDate: Timestamp.fromDate(paymentDate!),
+                    createdAt: Timestamp.now(),
                   );
 
                   try {
@@ -257,10 +263,10 @@ class _AddPaymentScreenState extends State<AddPaymentScreen> {
                   }
                 },
 
-                child: const Text("Save Payment",
-                  style: TextStyle(
-                      fontSize: 18
-                  ),),
+                child: const Text(
+                  "Save Payment",
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
             ],
           ),

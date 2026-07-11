@@ -19,7 +19,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-
   final _formKey = GlobalKey<FormState>();
 
   final nameController = TextEditingController();
@@ -38,19 +37,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return AuthLayout(
       child: Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             Text(
               "Create Account",
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
 
             const SizedBox(height: 8),
@@ -86,7 +83,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 hintText: "Password",
                 prefixIcon: const Icon(Icons.lock_outline),
               ),
-                validator: Validators.password,
+              validator: Validators.password,
             ),
 
             const SizedBox(height: 20),
@@ -97,7 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 hintText: "Confirm Password",
                 prefixIcon: const Icon(Icons.lock_outline),
               ),
-                // validator: Validators.confirmPassword,
+              // validator: Validators.confirmPassword,
             ),
 
             const SizedBox(height: 32),
@@ -141,19 +138,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
                 const Text("Already have an account?"),
 
                 TextButton(
                   onPressed: () {
-                      context.push(RouteNames.login);
+                    context.push(RouteNames.login);
                   },
                   child: const Text("Login"),
                 ),
-
               ],
-            )
-
+            ),
           ],
         ),
       ),

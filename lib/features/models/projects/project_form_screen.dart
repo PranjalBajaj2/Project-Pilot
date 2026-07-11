@@ -248,10 +248,10 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                   }
                 },
 
-                child: const Text("Save Project",
-                style: TextStyle(
-                  fontSize: 18
-                ),),
+                child: const Text(
+                  "Save Project",
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
             ],
           ),

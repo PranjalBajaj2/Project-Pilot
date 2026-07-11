@@ -37,7 +37,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
           context.push(RouteNames.addProject);
         },
 
-        child: const Icon(Icons.monetization_on),
+        child: const Icon(Icons.create_new_folder_rounded),
       ),
 
       body: Padding(

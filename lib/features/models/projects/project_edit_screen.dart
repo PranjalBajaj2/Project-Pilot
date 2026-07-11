@@ -46,11 +46,19 @@ class _EditProjectScreenState extends State<EditProjectScreen> {
   void initState() {
     super.initState();
 
-    projectNameController = TextEditingController(text: widget.project.projectName);;
+    projectNameController = TextEditingController(
+      text: widget.project.projectName,
+    );
+    ;
 
-    descriptionController = TextEditingController(text: widget.project.description);;
+    descriptionController = TextEditingController(
+      text: widget.project.description,
+    );
+    ;
 
-    budgetController = TextEditingController(text: widget.project.budget.toString());
+    budgetController = TextEditingController(
+      text: widget.project.budget.toString(),
+    );
 
     selectedCurrency = widget.project.currency;
     selectedStatus = widget.project.status;
@@ -58,7 +66,6 @@ class _EditProjectScreenState extends State<EditProjectScreen> {
     startDate = widget.project.startDate.toDate();
     deadline = widget.project.deadline.toDate();
   }
-
 
   @override
   void dispose() {
@@ -112,7 +119,6 @@ class _EditProjectScreenState extends State<EditProjectScreen> {
         type: ContentType.success,
       );
 
-
       context.pop();
     } catch (e) {
       if (!mounted) return;
@@ -138,7 +144,7 @@ class _EditProjectScreenState extends State<EditProjectScreen> {
     if (selectedClient == null && clients.isNotEmpty) {
       try {
         selectedClient = clients.firstWhere(
-              (client) => client.id == widget.project.clientId,
+          (client) => client.id == widget.project.clientId,
         );
       } catch (_) {
         selectedClient = null;
@@ -162,7 +168,7 @@ class _EditProjectScreenState extends State<EditProjectScreen> {
                   prefixIcon: Icon(Icons.insert_drive_file_outlined),
                 ),
                 validator: (v) =>
-                v!.isEmpty ? "Project Name is Required" : null,
+                    v!.isEmpty ? "Project Name is Required" : null,
               ),
               const SizedBox(height: 10),
               TextFormField(
@@ -207,7 +213,6 @@ class _EditProjectScreenState extends State<EditProjectScreen> {
                         ? "Select Start Date"
                         : "${startDate!.day}/${startDate!.month}/${startDate!.year}",
                   ),
-
                 ),
               ),
 
@@ -295,12 +300,14 @@ class _EditProjectScreenState extends State<EditProjectScreen> {
                 onPressed: isSaving ? null : updateProject,
                 child: isSaving
                     ? const SizedBox(
-                  height: 22,
-                  width: 22,
-                  child: CircularProgressIndicator(),
-                )
-                    : const Text("Update Project",
-                style: TextStyle(fontSize: 18),),
+                        height: 22,
+                        width: 22,
+                        child: CircularProgressIndicator(),
+                      )
+                    : const Text(
+                        "Update Project",
+                        style: TextStyle(fontSize: 18),
+                      ),
               ),
             ],
           ),

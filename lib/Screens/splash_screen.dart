@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:projectpilot/Screens/login_screen.dart';
 import 'package:projectpilot/core/theme/app_colors.dart';
+
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});
 
@@ -11,8 +12,7 @@ class Splashscreen extends StatefulWidget {
 
 class _SplashscreenState extends State<Splashscreen> {
   late Timer _timer;
-  bool get isDesktop =>
-      MediaQuery.of(context).size.width >= 800;
+  bool get isDesktop => MediaQuery.of(context).size.width >= 800;
 
   @override
   void initState() {
@@ -22,7 +22,7 @@ class _SplashscreenState extends State<Splashscreen> {
       if (mounted) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) =>  LoginScreen()),
+          MaterialPageRoute(builder: (context) => LoginScreen()),
         );
       }
     });
@@ -36,12 +36,8 @@ class _SplashscreenState extends State<Splashscreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: isDesktop ? _buildDesktop() : _buildMobile(),
-    );
+    return Scaffold(body: isDesktop ? _buildDesktop() : _buildMobile());
   }
-
-
 
   Widget _buildDesktop() {
     return Scaffold(
@@ -52,11 +48,10 @@ class _SplashscreenState extends State<Splashscreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-
               // IMAGE (center aligned in row)
               Image.asset(
                 "images/splash_screen.jpg",
-                 width: 700,
+                width: 700,
                 // height: 325,
                 fit: BoxFit.cover,
               ),
@@ -72,14 +67,13 @@ class _SplashscreenState extends State<Splashscreen> {
               //     Text("Where freelancers fly forward.",
               //       style: GoogleFonts.quicksand(fontSize: 18,fontWeight: FontWeight.w600)
               //)
-
             ],
           ),
-
         ),
       ),
     );
   }
+
   Widget _buildMobile() {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
@@ -91,7 +85,6 @@ class _SplashscreenState extends State<Splashscreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-
               // IMAGE (center aligned in row)
               Image.asset(
                 "images/mobile_splash.jpg",
@@ -106,8 +99,6 @@ class _SplashscreenState extends State<Splashscreen> {
               //     Text("Where freelancers fly forward.",
               //       style: GoogleFonts.quicksand(fontSize: 18,fontWeight: FontWeight.w600)
               // )
-
-
             ],
           ),
         ),

@@ -40,8 +40,15 @@ class _EditPaymentScreenState extends State<EditPaymentScreen> {
   DateTime? paymentDate;
 
   static const currencies = ["PKR", "USD", "EUR", "GBP"];
-  static const statuses = ["Pending", "In Progress", "Completed", "Cancelled"];
-  static const paymentMethods = ["Cash", "Bank Transfer", "JazzCash", "EasyPaisa", "PayPal", "Stripe"];
+  static const statuses = ["Pending", "Received"];
+  static const paymentMethods = [
+    "Cash",
+    "Bank Transfer",
+    "JazzCash",
+    "EasyPaisa",
+    "PayPal",
+    "Stripe",
+  ];
   bool isLoading = false;
 
   bool isSaving = false;
@@ -50,7 +57,9 @@ class _EditPaymentScreenState extends State<EditPaymentScreen> {
   void initState() {
     super.initState();
 
-    amountController = TextEditingController(text: widget.payment.amount.toString());
+    amountController = TextEditingController(
+      text: widget.payment.amount.toString(),
+    );
 
     notesController = TextEditingController(text: widget.payment.notes);
 
@@ -59,9 +68,7 @@ class _EditPaymentScreenState extends State<EditPaymentScreen> {
     selectedMethod = widget.payment.paymentMethod;
 
     paymentDate = widget.payment.paymentDate.toDate();
-
   }
-
 
   @override
   void dispose() {
@@ -73,7 +80,7 @@ class _EditPaymentScreenState extends State<EditPaymentScreen> {
   Future<void> updatePayment() async {
     if (!_formKey.currentState!.validate()) return;
 
-    if (paymentDate == null ) {
+    if (paymentDate == null) {
       AppSnackbar.show(
         context,
         title: "Date",
@@ -88,22 +95,20 @@ class _EditPaymentScreenState extends State<EditPaymentScreen> {
     });
 
     final updatedPayments = PaymentModel(
-        id: widget.payment.id ?? "",
-        userId: FirebaseAuth.instance.currentUser!.uid,
-        clientId: selectedClient!.id,
-        clientName: selectedClient!.name,
-        projectId: selectedProject!.id,
-        projectName: selectedProject!.projectName,
-        paymentMethod: selectedMethod,
-        status: selectedStatus,
-        notes: notesController.text,
-        currency: selectedCurrency,
-        amount: double.parse(amountController.text),
-        paymentDate: Timestamp.fromDate(paymentDate!),
-        createdAt: Timestamp.now()
+      id: widget.payment.id ?? "",
+      userId: FirebaseAuth.instance.currentUser!.uid,
+      clientId: selectedClient!.id,
+      clientName: selectedClient!.name,
+      projectId: selectedProject!.id,
+      projectName: selectedProject!.projectName,
+      paymentMethod: selectedMethod,
+      status: selectedStatus,
+      notes: notesController.text,
+      currency: selectedCurrency,
+      amount: double.parse(amountController.text),
+      paymentDate: Timestamp.fromDate(paymentDate!),
+      createdAt: Timestamp.now(),
     );
-
-    
 
     try {
       await context.read<PaymentProvider>().updatePayment(updatedPayments);
@@ -116,7 +121,6 @@ class _EditPaymentScreenState extends State<EditPaymentScreen> {
         message: "Payment Updated Successfully",
         type: ContentType.success,
       );
-
 
       context.pop();
     } catch (e) {
@@ -143,7 +147,7 @@ class _EditPaymentScreenState extends State<EditPaymentScreen> {
     if (selectedClient == null && clients.isNotEmpty) {
       try {
         selectedClient = clients.firstWhere(
-              (client) => client.id == widget.payment.clientId,
+          (client) => client.id == widget.payment.clientId,
         );
       } catch (_) {
         selectedClient = null;
@@ -153,7 +157,7 @@ class _EditPaymentScreenState extends State<EditPaymentScreen> {
     if (selectedProject == null && projects.isNotEmpty) {
       try {
         selectedProject = projects.firstWhere(
-              (project) => project.id == widget.payment.projectId,
+          (project) => project.id == widget.payment.projectId,
         );
       } catch (_) {
         selectedClient = null;
@@ -204,7 +208,7 @@ class _EditPaymentScreenState extends State<EditPaymentScreen> {
                 items: projects.map((project) {
                   return DropdownMenuItem(
                     value: project,
-                    child: Text(project.projectName?? " "),
+                    child: Text(project.projectName ?? " "),
                   );
                 }).toList(),
                 onChanged: (value) {
@@ -247,7 +251,7 @@ class _EditPaymentScreenState extends State<EditPaymentScreen> {
                   prefixIcon: Icon(Icons.attach_money_rounded),
                 ),
                 validator: (v) =>
-                v!.isEmpty ? "Project Amount is Required" : null,
+                    v!.isEmpty ? "Project Amount is Required" : null,
               ),
               const SizedBox(height: 12),
               InkWell(
@@ -312,12 +316,14 @@ class _EditPaymentScreenState extends State<EditPaymentScreen> {
                 onPressed: isSaving ? null : updatePayment,
                 child: isSaving
                     ? const SizedBox(
-                  height: 22,
-                  width: 22,
-                  child: CircularProgressIndicator(),
-                )
-                    : const Text("Update Payment",
-                  style: TextStyle(fontSize: 18),),
+                        height: 22,
+                        width: 22,
+                        child: CircularProgressIndicator(),
+                      )
+                    : const Text(
+                        "Update Payment",
+                        style: TextStyle(fontSize: 18),
+                      ),
               ),
             ],
           ),

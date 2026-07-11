@@ -92,7 +92,6 @@ class _EditClientScreenState extends State<EditClientScreen> {
         type: ContentType.success,
       );
 
-
       context.pop();
     } catch (e) {
       if (!mounted) return;
@@ -122,8 +121,9 @@ class _EditClientScreenState extends State<EditClientScreen> {
               TextFormField(
                 controller: nameController,
                 decoration: const InputDecoration(
-                    labelText: "Client Name",
-                  prefixIcon: Icon(Icons.person_rounded),),
+                  labelText: "Client Name",
+                  prefixIcon: Icon(Icons.person_rounded),
+                ),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
                     return "Client name is required";
@@ -136,8 +136,9 @@ class _EditClientScreenState extends State<EditClientScreen> {
               TextFormField(
                 controller: projectController,
                 decoration: const InputDecoration(
-                    labelText: "Project Name",
-                  prefixIcon: Icon(Icons.folder_copy_outlined),),
+                  labelText: "Project Name",
+                  prefixIcon: Icon(Icons.folder_copy_outlined),
+                ),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
                     return "Project name is required";
@@ -151,8 +152,9 @@ class _EditClientScreenState extends State<EditClientScreen> {
               TextFormField(
                 controller: companyController,
                 decoration: const InputDecoration(
-                    labelText: "Company",
-                  prefixIcon: Icon(Icons.home_outlined),),
+                  labelText: "Company",
+                  prefixIcon: Icon(Icons.home_outlined),
+                ),
               ),
 
               const SizedBox(height: 10),
@@ -161,7 +163,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
-                    labelText: "Email",
+                  labelText: "Email",
                   prefixIcon: Icon(Icons.email_outlined),
                 ),
               ),
@@ -171,7 +173,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                 controller: phoneController,
                 keyboardType: TextInputType.phone,
                 decoration: const InputDecoration(
-                    labelText: "Phone",
+                  labelText: "Phone",
                   prefixIcon: Icon(Icons.phone_outlined),
                 ),
               ),
@@ -181,8 +183,9 @@ class _EditClientScreenState extends State<EditClientScreen> {
               TextFormField(
                 controller: addressController,
                 decoration: const InputDecoration(
-                    labelText: "Address",
-                  prefixIcon: Icon(Icons.location_on_outlined),),
+                  labelText: "Address",
+                  prefixIcon: Icon(Icons.location_on_outlined),
+                ),
               ),
 
               const SizedBox(height: 10),
@@ -209,8 +212,10 @@ class _EditClientScreenState extends State<EditClientScreen> {
                           width: 22,
                           child: CircularProgressIndicator(),
                         )
-                      : const Text("Update Client",
-                    style: TextStyle(fontSize: 18),),
+                      : const Text(
+                          "Update Client",
+                          style: TextStyle(fontSize: 18),
+                        ),
                 ),
               ),
             ],
