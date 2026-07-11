@@ -40,6 +40,12 @@ dependencies:
   google_fonts: ^8.1.0
   responsive_builder: ^0.4.1
   go_router: ^17.3.0
+  awesome_snackbar_content: ^0.1.8
+  provider: ^6.1.5+1
+  intl: ^0.20.1
+  image_picker: ^1.2.3
+  firebase_storage: ^13.4.3
+  shared_preferences: ^2.5.5
 
 dev_dependencies:
   flutter_test:
@@ -62,14 +68,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-  fonts:
-    - family: Agustina
-      fonts:
-        - asset: assets/fonts/agustina.otf
 
-    - family: Minee
-      fonts:
-        - asset: assets/fonts/Merienda-SemiBold.ttf
 
   #   - images/a_dot_ham.jpeg
 
