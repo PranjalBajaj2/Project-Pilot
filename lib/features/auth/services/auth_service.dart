@@ -25,7 +25,6 @@ class AuthService {
         name: name,
         email: email,
         phone: " ",
-        photoUrl: " ",
         createdAt: Timestamp.now(),
       );
 

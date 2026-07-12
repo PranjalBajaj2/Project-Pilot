@@ -5,7 +5,6 @@ class UserModel {
   final String name;
   final String email;
   final String? phone;
-  final String? photoUrl;
   final Timestamp createdAt;
 
   UserModel({
@@ -13,7 +12,6 @@ class UserModel {
     required this.name,
     required this.email,
     required this.phone,
-    required this.photoUrl,
     required this.createdAt,
   });
 
@@ -23,7 +21,6 @@ class UserModel {
       "name": name,
       "email": email,
       "phone": phone,
-      "photoUrl": photoUrl,
       "createdAt": createdAt,
     };
   }
@@ -34,8 +31,19 @@ class UserModel {
       name: map["name"],
       email: map["email"],
       phone: map["phone"] ?? "",
-      photoUrl: map["photoUrl"] ?? "",
       createdAt: map["createdAt"] ?? Timestamp.now(),
+    );
+  }
+  UserModel copyWith({
+    String? name,
+    String? phone,
+  }) {
+    return UserModel(
+      uid: uid,
+      name: name ?? this.name,
+      email: email, // Email stays the same
+      phone: phone ?? this.phone,
+      createdAt: createdAt, // Creation date stays the same
     );
   }
 }

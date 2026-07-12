@@ -11,4 +11,13 @@ class ProfileRepository {
   Future<void> updateProfile(UserModel user) {
     return service.updateProfile(user);
   }
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) {
+    return service.changePassword(
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+    );
+  }
 }

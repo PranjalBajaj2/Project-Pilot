@@ -12,6 +12,8 @@ class ProfileProvider extends ChangeNotifier {
 
   String? error;
 
+  bool uploadingImage = false;
+
   Future<void> loadProfile() async {
     try {
       isLoading = true;
@@ -29,11 +31,39 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateProfile(UserModel updatedUser) async {
-    await repository.updateProfile(updatedUser);
+  Future<void> updateProfile({
+    required String name,
+    required String phone,
+  }) async {
 
-    user = updatedUser;
+    final updated = user!.copyWith(
+      name: name,
+      phone: phone,
+    );
+
+    await repository.updateProfile(updated);
+
+    user = updated;
 
     notifyListeners();
+  }
+  bool isChangingPassword = false;
+
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    isChangingPassword = true;
+    notifyListeners();
+
+    try {
+      await repository.changePassword(
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+      );
+    } finally {
+      isChangingPassword = false;
+      notifyListeners();
+    }
   }
 }
