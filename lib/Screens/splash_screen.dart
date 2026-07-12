@@ -41,7 +41,7 @@ class _SplashscreenState extends State<Splashscreen> {
 
   Widget _buildDesktop() {
     return Scaffold(
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColorsLight.primary,
       body: SafeArea(
         child: Center(
           child: Row(
@@ -78,7 +78,7 @@ class _SplashscreenState extends State<Splashscreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColorsLight.primary,
       body: SafeArea(
         child: Center(
           child: Column(

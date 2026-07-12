@@ -16,6 +16,7 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final projects = context.watch<ProjectProvider>().projects;
     final payments = context.watch<PaymentProvider>().payments;
 
@@ -35,9 +36,9 @@ class DashboardScreen extends StatelessWidget {
         children: [
           const SizedBox(height: 6),
 
-          const Text(
+          Text(
             "Here's what's happening today",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.titleLarge,
           ),
 
           const SizedBox(height: 15),
@@ -46,9 +47,9 @@ class DashboardScreen extends StatelessWidget {
 
           const SizedBox(height: 15),
 
-          const Text(
+           Text(
             "Quick Actions",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.titleLarge,
           ),
 
           const SizedBox(height: 15),
@@ -86,9 +87,9 @@ class DashboardScreen extends StatelessWidget {
 
           const SizedBox(height: 15),
 
-          const Text(
+           Text(
             "Recent Projects",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+               style: Theme.of(context).textTheme.titleLarge,
           ),
 
           const SizedBox(height: 15),
@@ -114,9 +115,9 @@ class DashboardScreen extends StatelessWidget {
 
           const SizedBox(height: 15),
 
-          const Text(
+           Text(
             "Pending Payments",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+             style: Theme.of(context).textTheme.titleLarge,
           ),
 
           const SizedBox(height: 15),

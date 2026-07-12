@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:projectpilot/Screens/register_screen.dart';
-import 'package:projectpilot/core/utils/validators.dart';
-import 'package:projectpilot/shared/widgets/app_logo.dart';
 import 'package:projectpilot/shared/widgets/custom_text_field.dart';
 import 'package:projectpilot/shared/widgets/primary_button.dart';
 import 'package:provider/provider.dart';
 
 import '../features/auth/providers/auth_provider.dart';
-import '../routes/app_routes.dart';
-import '../routes/route_names.dart';
 import '../shared/widgets/auth_card.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -31,14 +26,11 @@ class _ForgotPasswordstate extends State<ForgotPasswordScreen> {
     super.dispose();
   }
 
-  bool get isDesktop =>
-      MediaQuery.of(context).size.width >= 800;
+  bool get isDesktop => MediaQuery.of(context).size.width >= 800;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: isDesktop ? _buildDesktop() : _buildMobile(),
-    );
+    return Scaffold(body: isDesktop ? _buildDesktop() : _buildMobile());
   }
 
   //================ MOBILE =================//
@@ -70,9 +62,7 @@ class _ForgotPasswordstate extends State<ForgotPasswordScreen> {
               Expanded(
                 child: Center(
                   child: SingleChildScrollView(
-                    child: AuthCard(
-                      child: _loginForm(),
-                    ),
+                    child: AuthCard(child: _loginForm()),
                   ),
                 ),
               ),
@@ -88,9 +78,10 @@ class _ForgotPasswordstate extends State<ForgotPasswordScreen> {
   Widget _buildDesktop() {
     return Container(
       decoration: BoxDecoration(
-          image: DecorationImage(image:
-          AssetImage("images/BackPoster.png"),
-            fit: BoxFit.fill,)
+        image: DecorationImage(
+          image: AssetImage("images/BackPoster.png"),
+          fit: BoxFit.fill,
+        ),
       ),
       child: Center(
         child: SingleChildScrollView(
@@ -99,9 +90,7 @@ class _ForgotPasswordstate extends State<ForgotPasswordScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
 
-              child: AuthCard(
-                child: _loginForm(showTitle: true),
-              ),
+              child: AuthCard(child: _loginForm(showTitle: true)),
             ),
           ),
         ),
@@ -116,22 +105,16 @@ class _ForgotPasswordstate extends State<ForgotPasswordScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           Text(
             "Forgot Password?",
-            style: Theme.of(context)
-                .textTheme
-                .headlineMedium
-                ?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
 
           const SizedBox(height: 10),
 
-          Text(
-            "Enter your email and we'll send you a password reset link.",
-          ),
+          Text("Enter your email and we'll send you a password reset link."),
 
           const SizedBox(height: 40),
 
@@ -144,34 +127,24 @@ class _ForgotPasswordstate extends State<ForgotPasswordScreen> {
 
           const SizedBox(height: 30),
 
-              PrimaryButton(
-                text: "Send Reset Link",
-                onPressed: () async {
-                  if (!_formKey.currentState!.validate()) return;
+          PrimaryButton(
+            text: "Send Reset Link",
+            onPressed: () async {
+              if (!_formKey.currentState!.validate()) return;
 
-                  final authProvider = context.read<AuthProvider>();
+              final authProvider = context.read<AuthProvider>();
 
-                  await authProvider.forgotPassword(
-                    emailController.text.trim(),
-                  );
+              await authProvider.forgotPassword(emailController.text.trim());
 
-                  if (!mounted) return;
+              if (!mounted) return;
 
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Password reset email sent.")),
+              );
 
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Password reset email sent."),
-                    ),
-                  );
-
-                  context.pop();
-                },
-              ),
-
-
-
-
+              context.pop();
+            },
+          ),
         ],
       ),
     );

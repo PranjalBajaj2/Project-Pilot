@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:projectpilot/core/theme/app_theme.dart';
+import 'package:provider/provider.dart';
 
+import '../../../core/theme/theme_provider.dart';
 import '../../../shared/navigation/mobile_navigation.dart';
 import '../../../shared/navigation/desktop_navigation.dart';
 import '../../../shared/widgets/custom_app_bar.dart';
@@ -7,7 +10,7 @@ import '../../models/clients/clients.dart';
 import '../../dashboard.dart';
 import '../../models/navigation_item.dart';
 import '../../models/payments/payments.dart';
-import '../../profile.dart';
+import '../../models/profile/profile.dart';
 import '../../models/projects/projects.dart';
 
 class MainScreen extends StatefulWidget {
@@ -70,15 +73,20 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
 
-    return Scaffold(
+    return Theme(
+        data: themeProvider.themeMode == ThemeMode.dark
+            ? AppThemeDark.darkTheme
+            : AppThemeLight.lightTheme,
+
+        child: Scaffold(
 
       appBar: CustomAppBar(
-
-          title: items[currentIndex].title,
           icon: items[currentIndex].icon,
+          title: items[currentIndex].title,
+
               ),
-      backgroundColor: Colors.white,
 
       body: isDesktop
           ? Row(
@@ -117,6 +125,7 @@ class _MainScreenState extends State<MainScreen> {
           });
         },
       ),
+        ),
     );
   }
 }
