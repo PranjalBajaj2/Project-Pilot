@@ -8,4 +8,6 @@ class RouteNames {
   static const dashboard = '/dashboard';
   static const main = '/home';
   static const addClient = '/add-client';
+  static const addProject = '/add-project';
+  static const addPayment = '/add-payment';
 }
