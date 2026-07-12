@@ -138,7 +138,7 @@ class _ProjectTileState extends State<ProjectTile> {
                     duration: const Duration(milliseconds: 250),
                     child: const Icon(
                       Icons.keyboard_arrow_down,
-                      color: AppColors.error,
+                      color: AppColorsLight.error,
                     ),
                   ),
                 ],
@@ -193,7 +193,7 @@ class _ProjectTileState extends State<ProjectTile> {
                       Expanded(
                         child: FilledButton.icon(
                           style: FilledButton.styleFrom(
-                            backgroundColor: AppColors.error,
+                            backgroundColor: AppColorsLight.error,
                           ),
                           onPressed: deleteClient,
                           icon: const Icon(Icons.delete),

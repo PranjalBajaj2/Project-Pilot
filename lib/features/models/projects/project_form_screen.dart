@@ -7,6 +7,8 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:projectpilot/shared/widgets/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/theme_provider.dart';
 import '../../../shared/widgets/app_snackbar.dart';
 import '../../auth/models/client_model.dart';
 import '../../auth/providers/client_provider.dart';
@@ -50,7 +52,11 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
   @override
   Widget build(BuildContext context) {
     final clients = context.watch<ClientProvider>().clients;
+    final themeProvider = context.watch<ThemeProvider>();
     return Scaffold(
+      backgroundColor: themeProvider.isDark
+          ? AppColorsDark.secondary
+          : AppColorsLight.surface,
       appBar: CustomAppBar(title: "Add Project"),
 
       body: Padding(

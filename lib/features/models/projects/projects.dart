@@ -32,7 +32,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         tooltip: "Add new project",
-        hoverColor: AppColors.primary,
+        hoverColor: AppColorsLight.primary,
         onPressed: () {
           context.push(RouteNames.addProject);
         },
