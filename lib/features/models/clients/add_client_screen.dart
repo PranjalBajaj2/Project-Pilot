@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:projectpilot/core/theme/theme_provider.dart';
 import 'package:projectpilot/shared/widgets/custom_app_bar.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_theme.dart';
 import '../../../shared/widgets/app_snackbar.dart';
 import '../../auth/models/client_model.dart';
 import '../../auth/providers/client_provider.dart';
@@ -41,7 +44,11 @@ class _AddClientScreenState extends State<AddClientScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
     return Scaffold(
+      backgroundColor: themeProvider.isDark
+          ? AppColorsDark.secondary
+          : AppColorsLight.surface,
       appBar: CustomAppBar(title: "Add Client"),
 
       body: Padding(

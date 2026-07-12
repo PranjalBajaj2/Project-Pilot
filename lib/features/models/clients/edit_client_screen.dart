@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projectpilot/core/theme/app_colors.dart';
 import 'package:provider/provider.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import '../../../core/theme/theme_provider.dart';
 import '../../../shared/widgets/app_snackbar.dart';
 import '../../../shared/widgets/custom_app_bar.dart';
 import '../../auth/models/client_model.dart';
@@ -110,7 +112,11 @@ class _EditClientScreenState extends State<EditClientScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
     return Scaffold(
+      backgroundColor: themeProvider.isDark
+          ? AppColorsDark.secondary
+          : AppColorsLight.surface,
       appBar: CustomAppBar(title: "Edit Client"),
       body: Padding(
         padding: const EdgeInsets.all(20),

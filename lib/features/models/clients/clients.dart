@@ -17,7 +17,6 @@ class ClientsScreen extends StatefulWidget {
 class _ClientsScreenState extends State<ClientsScreen> {
   final searchController = TextEditingController();
 
-
   @override
   void dispose() {
     searchController.dispose();
@@ -32,7 +31,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         tooltip: "Add new Client",
-        hoverColor: AppColors.primary,
+        hoverColor: AppColorsLight.primary,
         onPressed: () {
           context.push(RouteNames.addClient);
         },
@@ -66,19 +65,22 @@ class _ClientsScreenState extends State<ClientsScreen> {
                     return const Center(child: CircularProgressIndicator());
                   }
                   if (provider.error != null) {
-                    return Center(
-                      child: Text(provider.error!),
-                    );
+                    return Center(child: Text(provider.error!));
                   }
 
                   if (provider.clients.isEmpty) {
-                    return const Center(child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.people_outline,size: 100,),
-                        Text("No Clients Found",style: TextStyle(fontSize: 25),)
-                      ],
-                    ));
+                    return const Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.people_outline, size: 100),
+                          Text(
+                            "No Clients Found",
+                            style: TextStyle(fontSize: 25),
+                          ),
+                        ],
+                      ),
+                    );
                   }
 
                   return ListView.builder(
