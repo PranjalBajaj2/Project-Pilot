@@ -144,7 +144,7 @@ class _PaymentTileState extends State<PaymentTile> {
                     duration: const Duration(milliseconds: 250),
                     child: const Icon(
                       Icons.keyboard_arrow_down,
-                      color: AppColors.error,
+                      color: AppColorsLight.error,
                     ),
                   ),
                 ],
@@ -229,7 +229,7 @@ class _PaymentTileState extends State<PaymentTile> {
                       Expanded(
                         child: FilledButton.icon(
                           style: FilledButton.styleFrom(
-                            backgroundColor: AppColors.error,
+                            backgroundColor: AppColorsLight.error,
                           ),
                           onPressed: deleteClient,
                           icon: const Icon(Icons.delete),
@@ -253,11 +253,11 @@ Widget statusChip(String status) {
 
   switch (status.toLowerCase()) {
     case "received":
-      color = AppColors.success;
+      color = AppColorsLight.success;
       break;
 
     case "pending":
-      color = AppColors.error;
+      color = AppColorsLight.error;
       break;
 
     default:
@@ -283,11 +283,11 @@ Widget paymentChip(String paymentMethod) {
       color = Colors.white54;
 
     case "JazzCash":
-      color = AppColors.error;
+      color = AppColorsLight.error;
       break;
 
     case "EasyPaisa":
-      color = AppColors.success;
+      color = AppColorsLight.success;
       break;
 
     case "Bank Transfer":

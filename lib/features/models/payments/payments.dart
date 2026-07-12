@@ -31,7 +31,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         tooltip: "Add new payment",
-        hoverColor: AppColors.primary,
+        hoverColor: AppColorsLight.primary,
         onPressed: () {
           context.push(RouteNames.addPayment);
         },

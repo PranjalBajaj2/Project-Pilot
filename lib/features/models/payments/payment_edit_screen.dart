@@ -8,6 +8,8 @@ import 'package:projectpilot/features/auth/providers/payment_provider.dart';
 import 'package:projectpilot/features/auth/providers/project_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/theme_provider.dart';
 import '../../../shared/widgets/app_snackbar.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import '../../../shared/widgets/custom_app_bar.dart';
@@ -163,7 +165,11 @@ class _EditPaymentScreenState extends State<EditPaymentScreen> {
         selectedClient = null;
       }
     }
+    final themeProvider = context.watch<ThemeProvider>();
     return Scaffold(
+      backgroundColor: themeProvider.isDark
+          ? AppColorsDark.secondary
+          : AppColorsLight.surface,
       appBar: CustomAppBar(title: "Add Payment"),
 
       body: Padding(
