@@ -1,17 +1,30 @@
-# projectpilot
+# ProjectPilot 
 
-A new Flutter project.
+It is a  Freelance Client Management application designed to help freelancers organize their clients, projects, and payments in one place.
 
-## Getting Started
+![projectpilot.png](assets/images/projectpilot.png)
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Screenshots
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+<p align="center">
+  <img src="assets/images/SplashScreen.png" width="250" alt="Image 1">
+  <img src="assets/images/Dashboard.png" width="250" alt="Image 2">
+  <img src="assets/images/Details.png" width="250" alt="Image 3">
+</p>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<p align="center">
+  <img src="assets/images/Payment.png" width="250" alt="Image 1">
+  <img src="assets/images/Profile.png" width="250" alt="Image 2">
+</p>
+
+## Features
+
+- Add Client
+- Edit Client
+- Add Project
+- Edit Project
+- Add Payment
+- Update Status
+- Theme Mode
+
