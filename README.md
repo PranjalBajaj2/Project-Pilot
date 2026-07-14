@@ -18,13 +18,19 @@ It is a  Freelance Client Management application designed to help freelancers or
   <img src="assets/images/Profile.png" width="250" alt="Image 2">
 </p>
 
-## Features
+## ✨ Features
+- 🔐 Firebase Authentication
+- 👥 Client Management (CRUD)
+- 📁 Project Management linked with clients
+- 💳 Payment Tracking
+- 📊 Dashboard with live statistics
+- 👤 User Profile & Account Management
+- 🌙 Light & Dark Theme Support
+- 🔍 Search Functionality
+- ☁️ Cloud Firestore Integration
+- 📱 Responsive UI for Mobile & Desktop
 
-- Add Client
-- Edit Client
-- Add Project
-- Edit Project
-- Add Payment
-- Update Status
-- Theme Mode
+## 🛠 Tech Stack
+
+- Flutter - Dart - Firebase Authentication - Cloud Firestore - Provider - GoRouter - Material 3
 
